@@ -1,16 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="DEBUG">
-    <Appenders>
-        <Console name="LogToConsole" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
-        </Console>
-    </Appenders>
-    <Loggers>
-        <Logger name="com.finastra.sme" level="debug" additivity="false">
-            <AppenderRef ref="LogToConsole"/>
-        </Logger>
-        <Root level="error">
-            <AppenderRef ref="LogToConsole"/>
-        </Root>
-    </Loggers>
+	<Appenders>
+		<RollingFile name="logfile" fileName="C:/Professional/SME/log/bookingmanager/Bookingmanager.log"
+			filePattern="logs/LoanIQ-%d{MM-dd-yyyy}-%i.log.gz">
+			<PatternLayout>
+				<Pattern>%d{ISO8601} [%t] %p: %m%n</Pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="50MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="2" />
+		</RollingFile>
+		<Console name="LogToConsole" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+		</Console>
+	</Appenders>
+	<Loggers>
+		<Logger name="com.finastra.sme" level="debug"
+			additivity="false">
+			<AppenderRef ref="LogToConsole" />
+		</Logger>
+		<Root level="debug">
+			<AppenderRef ref="logfile" />
+		</Root>
+	</Loggers>
 </Configuration>
